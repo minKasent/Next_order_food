@@ -1,3 +1,4 @@
+import ClientComponent from '@/app/ClientComponent'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 
@@ -10,7 +11,7 @@ export default function Home() {
           <code className='font-mono font-bold'>src/app/page.tsx</code>
         </p>
         <Button>Click me</Button>
-
+        <ClientComponent />
         <div className='fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none'>
           <a
             className='pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0'

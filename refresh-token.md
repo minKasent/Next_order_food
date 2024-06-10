@@ -15,7 +15,10 @@ Các trường hợp hết hạn access token
 
 Khi vào lại website thì middleware.ts sẽ được gọi đầu tiên. Chúng ta sẽ kiểm tra xem access token còn không (vì access token sẽ bị xóa khi hết hạn), nếu không còn thì chúng ta sẽ gọi cho redirect về page client component có nhiệm vụ gọi API refresh token và redirect ngược về trang cũ
 
-Lưu ý:
+Lưu ý để tránh bị bug khi thực hiện Đang dùng thì hết hạn
 
-- không cho refresh token liên tục
-- Thứ tự trong middleware
+- Không để refresh token bị gọi duplicate
+- Khi refresh token bị lỗi ở route handler => trả về 401 bất kể lỗi gì
+- Khi refrest token bị lỗi ở useEffect client => ngừng interval ngay
+- Đưa logic check vào layout ở trang authenticated: Không cho chạy refresh token ở những trang mà unauthenticated như: login, logout
+- Kiểm tra logic flow trong middleware

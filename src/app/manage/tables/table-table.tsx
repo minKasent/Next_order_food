@@ -232,9 +232,9 @@ export default function TableTable() {
             value={
               (table.getColumn('number')?.getFilterValue() as string) ?? ''
             }
-            onChange={(event) =>
+            onChange={(event) => {
               table.getColumn('number')?.setFilterValue(event.target.value)
-            }
+            }}
             className='max-w-sm'
           />
           <div className='ml-auto flex items-center gap-2'>

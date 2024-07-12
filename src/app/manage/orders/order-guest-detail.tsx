@@ -6,19 +6,53 @@ import {
   formatCurrency,
   formatDateTimeToLocaleString,
   formatDateTimeToTimeString,
-  getVietnameseOrderStatus
+  getVietnameseOrderStatus,
+  handleErrorApi
 } from '@/lib/utils'
-import { GetOrdersResType } from '@/schemaValidations/order.schema'
+import { usePayForGuestMutation } from '@/queries/useOrder'
+import {
+  GetOrdersResType,
+  PayGuestOrdersResType
+} from '@/schemaValidations/order.schema'
 import Image from 'next/image'
 import { Fragment } from 'react'
 
 type Guest = GetOrdersResType['data'][0]['guest']
 type Orders = GetOrdersResType['data']
-export default function OrderGuestDetail({ guest, orders }: { guest: Guest; orders: Orders }) {
+export default function OrderGuestDetail({
+  guest,
+  orders,
+  onPaySuccess
+}: {
+  guest: Guest
+  orders: Orders
+  onPaySuccess?: (data: PayGuestOrdersResType) => void
+}) {
   const ordersFilterToPurchase = guest
-    ? orders.filter((order) => order.status !== OrderStatus.Paid && order.status !== OrderStatus.Rejected)
+    ? orders.filter(
+        (order) =>
+          order.status !== OrderStatus.Paid &&
+          order.status !== OrderStatus.Rejected
+      )
     : []
-  const purchasedOrderFilter = guest ? orders.filter((order) => order.status === OrderStatus.Paid) : []
+  const purchasedOrderFilter = guest
+    ? orders.filter((order) => order.status === OrderStatus.Paid)
+    : []
+  const payForGuestMutation = usePayForGuestMutation()
+
+  const pay = async () => {
+    if (payForGuestMutation.isPending || !guest) return
+    try {
+      const result = await payForGuestMutation.mutateAsync({
+        guestId: guest.id
+      })
+      onPaySuccess && onPaySuccess(result.payload)
+    } catch (error) {
+      handleErrorApi({
+        error
+      })
+    }
+  }
   return (
     <div className='space-y-2 text-sm'>
       {guest && (
@@ -45,11 +79,21 @@ export default function OrderGuestDetail({ guest, orders }: { guest: Guest; orde
             <div key={order.id} className='flex gap-2 items-center text-xs'>
               <span className='w-[10px]'>{index + 1}</span>
               <span title={getVietnameseOrderStatus(order.status)}>
-                {order.status === OrderStatus.Pending && <OrderStatusIcon.Pending className='w-4 h-4' />}
-                {order.status === OrderStatus.Processing && <OrderStatusIcon.Processing className='w-4 h-4' />}
-                {order.status === OrderStatus.Rejected && <OrderStatusIcon.Rejected className='w-4 h-4 text-red-400' />}
-                {order.status === OrderStatus.Delivered && <OrderStatusIcon.Delivered className='w-4 h-4' />}
-                {order.status === OrderStatus.Paid && <OrderStatusIcon.Paid className='w-4 h-4 text-yellow-400' />}
+                {order.status === OrderStatus.Pending && (
+                  <OrderStatusIcon.Pending className='w-4 h-4' />
+                )}
+                {order.status === OrderStatus.Processing && (
+                  <OrderStatusIcon.Processing className='w-4 h-4' />
+                )}
+                {order.status === OrderStatus.Rejected && (
+                  <OrderStatusIcon.Rejected className='w-4 h-4 text-red-400' />
+                )}
+                {order.status === OrderStatus.Delivered && (
+                  <OrderStatusIcon.Delivered className='w-4 h-4' />
+                )}
+                {order.status === OrderStatus.Paid && (
+                  <OrderStatusIcon.Paid className='w-4 h-4 text-yellow-400' />
+                )}
               </span>
               <Image
                 src={order.dishSnapshot.image}
@@ -59,13 +103,18 @@ export default function OrderGuestDetail({ guest, orders }: { guest: Guest; orde
                 height={30}
                 className='h-[30px] w-[30px] rounded object-cover'
               />
-              <span className='truncate w-[70px] sm:w-[100px]' title={order.dishSnapshot.name}>
+              <span
+                className='truncate w-[70px] sm:w-[100px]'
+                title={order.dishSnapshot.name}
+              >
                 {order.dishSnapshot.name}
               </span>
               <span className='font-semibold' title={`Tổng: ${order.quantity}`}>
                 x{order.quantity}
               </span>
-              <span className='italic'>{formatCurrency(order.quantity * order.dishSnapshot.price)}</span>
+              <span className='italic'>
+                {formatCurrency(order.quantity * order.dishSnapshot.price)}
+              </span>
               <span
                 className='hidden sm:inline'
                 title={`Tạo: ${formatDateTimeToLocaleString(
@@ -115,7 +164,13 @@ export default function OrderGuestDetail({ guest, orders }: { guest: Guest; orde
       </div>
 
       <div>
-        <Button className='w-full' size={'sm'} variant={'secondary'} disabled={ordersFilterToPurchase.length === 0}>
+        <Button
+          className='w-full'
+          size={'sm'}
+          variant={'secondary'}
+          disabled={ordersFilterToPurchase.length === 0}
+          onClick={pay}
+        >
           Thanh toán tất cả ({ordersFilterToPurchase.length} đơn)
         </Button>
       </div>

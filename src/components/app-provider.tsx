@@ -18,6 +18,7 @@ import {
 } from '@/lib/utils'
 import { RoleType } from '@/types/jwt.types'
 import type { Socket } from 'socket.io-client'
+import ListenLogoutSocket from '@/components/listen-logout-socket'
 // Default
 // staleTime: 0
 // gc: 5 phút (5 * 1000* 60)
@@ -48,6 +49,7 @@ export default function AppProvider({
   const [socket, setSocket] = useState<Socket | undefined>()
   const [role, setRoleState] = useState<RoleType | undefined>()
   const count = useRef(0)
+
   useEffect(() => {
     if (count.current === 0) {
       const accessToken = getAccessTokenFromLocalStorage()
@@ -81,6 +83,7 @@ export default function AppProvider({
       <QueryClientProvider client={queryClient}>
         {children}
         <RefreshToken />
+        <ListenLogoutSocket />
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </AppContext.Provider>

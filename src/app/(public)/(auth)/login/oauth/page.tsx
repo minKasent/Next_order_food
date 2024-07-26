@@ -34,10 +34,14 @@ export default function OAuthPage() {
         count.current++
       }
     } else {
-      console.log(message)
-      toast({
-        description: message || 'Có lỗi xảy ra'
-      })
+      if (count.current === 0) {
+        setTimeout(() => {
+          toast({
+            description: message || 'Có lỗi xảy ra'
+          })
+        })
+        count.current++
+      }
     }
   }, [
     accessToken,
@@ -48,5 +52,5 @@ export default function OAuthPage() {
     message,
     mutateAsync
   ])
-  return <div />
+  return null
 }

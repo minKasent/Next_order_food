@@ -1,5 +1,5 @@
 'use client'
-import { useAppContext } from '@/components/app-provider'
+import { useAppStore } from '@/components/app-provider'
 import { Role } from '@/constants/type'
 import { cn, handleErrorApi } from '@/lib/utils'
 import { useLogoutMutation } from '@/queries/useAuth'
@@ -55,10 +55,11 @@ const menuItems: {
 // Nhưng ngay sau đó thì client render ra là Món ăn, Đơn hàng, Quản lý do đã check được trạng thái đăng nhập
 
 export default function NavItems({ className }: { className?: string }) {
-  const { role, setRole, disconnectSocket } = useAppContext()
+  const role = useAppStore((state) => state.role)
+  const setRole = useAppStore((state) => state.setRole)
+  const disconnectSocket = useAppStore((state) => state.disconnectSocket)
   const logoutMutation = useLogoutMutation()
   const router = useRouter()
-
   const logout = async () => {
     if (logoutMutation.isPending) return
     try {

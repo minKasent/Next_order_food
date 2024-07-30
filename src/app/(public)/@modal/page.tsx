@@ -1,3 +1,3 @@
 export default function ModalPage() {
-  return <div>ModalPage</div>
+  return <div> ModalPage</div>
 }

@@ -29,14 +29,6 @@ const menuItems: {
     href: '/'
   },
   {
-    title: 'Setting',
-    href: '/setting'
-  },
-  {
-    title: 'Combo',
-    href: '/combo'
-  },
-  {
     title: 'Menu',
     href: '/guest/menu',
     role: [Role.Guest]

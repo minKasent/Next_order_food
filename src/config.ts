@@ -23,3 +23,8 @@ if (!configProject.success) {
 const envConfig = configProject.data
 
 export default envConfig
+
+export type Locale = (typeof locales)[number]
+
+export const locales = ['en', 'vi'] as const
+export const defaultLocale: Locale = 'vi'

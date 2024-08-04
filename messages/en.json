@@ -1,5 +1,13 @@
 {
   "HomePage": {
     "title": "Big Boy Restaurant"
+  },
+  "Login": {
+    "title": "Login"
+  },
+  "SwitchLanguage": {
+    "title": "Switch language",
+    "en": "English",
+    "vi": "Vietnamese"
   }
 }

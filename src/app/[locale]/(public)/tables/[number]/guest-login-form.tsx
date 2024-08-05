@@ -10,11 +10,12 @@ import {
   GuestLoginBody,
   GuestLoginBodyType
 } from '@/schemaValidations/guest.schema'
-import { useParams, useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams, useParams } from 'next/navigation'
 import { useEffect } from 'react'
 import { useGuestLoginMutation } from '@/queries/useGuest'
 import { useAppStore } from '@/components/app-provider'
 import { generateSocketInstace, handleErrorApi } from '@/lib/utils'
+import { useRouter } from '@/navigation'
 
 export default function GuestLoginForm() {
   const setSocket = useAppStore((state) => state.setSocket)

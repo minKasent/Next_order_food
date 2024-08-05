@@ -10,12 +10,8 @@ import {
 } from '@/components/ui/select'
 import { Locale, locales } from '@/config'
 import { useLocale, useTranslations } from 'next-intl'
-import {
-  usePathname,
-  useRouter,
-  useSearchParams,
-  useParams
-} from 'next/navigation'
+import { useSearchParams, useParams } from 'next/navigation'
+import { usePathname, useRouter } from '@/navigation'
 
 export function SwitchLanguage() {
   const t = useTranslations('SwitchLanguage')

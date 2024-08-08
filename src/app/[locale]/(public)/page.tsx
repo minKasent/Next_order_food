@@ -4,8 +4,14 @@ import { DishListResType } from '@/schemaValidations/dish.schema'
 import Image from 'next/image'
 import { Link } from '@/navigation'
 import { getTranslations } from 'next-intl/server'
+import { unstable_setRequestLocale } from 'next-intl/server'
 
-export default async function Home() {
+export default async function Home({
+  params: { locale }
+}: {
+  params: { locale: string }
+}) {
+  unstable_setRequestLocale(locale)
   const t = await getTranslations('HomePage')
   let dishList: DishListResType['data'] = []
   try {

@@ -32,3 +32,11 @@
 - Next.js PR là tốt cho SEO, nhưng thật sự chỉ là cải thiện SEO của React thôi. Chứ so với việc dùng Multiple page truyền thống thì thật sự Next.js kém hơn. Lý do chủ yếu nằm ở việc hạn chế kỹ thuật trong framework Next.js và tốc độ load trang chậm, JS bundle lớn.
 
 - Đừng tin vào điểm SEO Google Lighthouse => Nó không mạnh về SEO
+
+## Checklist SEO
+
+- Content nào muốn SEO thì viewsource phải thấy
+- Page phải đầy đủ thẻ các thẻ title, meta description
+- Cung cấp Open Graph phục vụ các mạng xã hội Facebook, Twitter (cái này chỉ cần ở mức độ cơ bản là được)
+- Thêm các metadata file: robots.txt, sitemap.xml, favicon.ico
+- Thêm website vào google search console, google analytics

@@ -6,17 +6,30 @@ import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from '@/components/theme-provider'
 import AppProvider from '@/components/app-provider'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
-import { locales } from '@/config'
+import { getMessages, getTranslations } from 'next-intl/server'
+import { Locale, locales } from '@/config'
 import { unstable_setRequestLocale } from 'next-intl/server'
 
 const fontSans = FontSans({
   subsets: ['latin'],
   variable: '--font-sans'
 })
-export const metadata: Metadata = {
-  title: 'Big Boy Restaurant',
-  description: 'The best restaurant in the world'
+// export const metadata: Metadata = {
+//   title: 'Big Boy Restaurant',
+//   description: 'The best restaurant in the world'
+// }
+
+export async function generateMetadata({
+  params: { locale }
+}: {
+  params: { locale: Locale }
+}) {
+  const t = await getTranslations({ locale, namespace: 'HomePage' })
+
+  return {
+    title: t('title'),
+    description: 'The best restaurant in the world'
+  }
 }
 
 export function generateStaticParams() {

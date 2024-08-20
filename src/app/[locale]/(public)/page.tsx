@@ -5,6 +5,20 @@ import Image from 'next/image'
 import { Link } from '@/navigation'
 import { getTranslations } from 'next-intl/server'
 import { unstable_setRequestLocale } from 'next-intl/server'
+import { Locale } from '@/config'
+
+export async function generateMetadata({
+  params: { locale }
+}: {
+  params: { locale: Locale }
+}) {
+  const t = await getTranslations({ locale, namespace: 'HomePage' })
+
+  return {
+    title: t('title'),
+    description: t('description')
+  }
+}
 
 export default async function Home({
   params: { locale }
@@ -39,13 +53,11 @@ export default async function Home({
           <h1 className='text-center text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold'>
             {t('title')}
           </h1>
-          <p className='text-center text-sm sm:text-base mt-4'>
-            Vị ngon, trọn khoảnh khắc
-          </p>
+          <p className='text-center text-sm sm:text-base mt-4'>{t('slogan')}</p>
         </div>
       </section>
       <section className='space-y-10 py-16'>
-        <h2 className='text-center text-2xl font-bold'>Đa dạng các món ăn</h2>
+        <h2 className='text-center text-2xl font-bold'>{t('h2')}</h2>
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-10'>
           {dishList.map((dish) => (
             <Link

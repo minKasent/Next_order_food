@@ -9,6 +9,7 @@ import { getMessages, getTranslations } from 'next-intl/server'
 import { Locale, locales } from '@/config'
 import { unstable_setRequestLocale } from 'next-intl/server'
 import NextTopLoader from 'nextjs-toploader'
+import Footer from '@/components/footer'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -60,6 +61,7 @@ export default async function RootLayout({
               disableTransitionOnChange
             >
               {children}
+              <Footer />
               <Toaster />
             </ThemeProvider>
           </AppProvider>

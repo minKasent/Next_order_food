@@ -8,6 +8,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, getTranslations } from 'next-intl/server'
 import { Locale, locales } from '@/config'
 import { unstable_setRequestLocale } from 'next-intl/server'
+import NextTopLoader from 'nextjs-toploader'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -49,6 +50,7 @@ export default async function RootLayout({
           fontSans.variable
         )}
       >
+        <NextTopLoader showSpinner={false} color='hsl(var(--foreground))' />
         <NextIntlClientProvider messages={messages}>
           <AppProvider>
             <ThemeProvider

@@ -25,6 +25,7 @@ import { useTranslations } from 'next-intl'
 import SearchParamsLoader, {
   useSearchParamsLoader
 } from '@/components/search-params-loader'
+import { LoaderCircle } from 'lucide-react'
 
 const getOauthGoogleUrl = () => {
   const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
@@ -148,6 +149,9 @@ export default function LoginForm() {
                 )}
               />
               <Button type='submit' className='w-full'>
+                {loginMutation.isPending && (
+                  <LoaderCircle className='w-5 h-5 mr-2 animate-spin' />
+                )}
                 {t('buttonLogin')}
               </Button>
               <Link href={googleOauthUrl}>

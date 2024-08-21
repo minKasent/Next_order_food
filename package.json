@@ -37,6 +37,7 @@
     "next": "14.2.3",
     "next-intl": "^3.17.2",
     "next-themes": "^0.3.0",
+    "nextjs-toploader": "^1.6.12",
     "qrcode": "^1.5.3",
     "query-string": "^9.0.0",
     "react": "^18",

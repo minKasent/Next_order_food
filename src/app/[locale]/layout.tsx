@@ -22,7 +22,6 @@ export async function generateMetadata({
   params: { locale: Locale }
 }) {
   const t = await getTranslations({ locale, namespace: 'Brand' })
-
   return {
     title: {
       template: `%s | ${t('title')}`,
@@ -31,6 +30,9 @@ export async function generateMetadata({
     openGraph: {
       ...baseOpenGraph
     }
+    // other: {
+    //   'google-site-verification': 'KKr5Sgn6rrXntMUp1nDIoQR7mJQujE4BExrlgcFvGTg'
+    // }
   }
 }
 

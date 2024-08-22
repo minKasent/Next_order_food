@@ -10,6 +10,7 @@ import { Locale, locales } from '@/config'
 import { unstable_setRequestLocale } from 'next-intl/server'
 import NextTopLoader from 'nextjs-toploader'
 import Footer from '@/components/footer'
+import { baseOpenGraph } from '@/shared-metadata'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -26,6 +27,9 @@ export async function generateMetadata({
     title: {
       template: `%s | ${t('title')}`,
       default: t('defaultTitle')
+    },
+    openGraph: {
+      ...baseOpenGraph
     }
   }
 }

@@ -9,7 +9,7 @@ import Image from 'next/image'
 import { Link } from '@/navigation'
 import { getTranslations } from 'next-intl/server'
 import { unstable_setRequestLocale } from 'next-intl/server'
-import { Locale } from '@/config'
+import envConfig, { Locale } from '@/config'
 
 export async function generateMetadata({
   params: { locale }
@@ -17,10 +17,14 @@ export async function generateMetadata({
   params: { locale: Locale }
 }) {
   const t = await getTranslations({ locale, namespace: 'HomePage' })
+  const url = envConfig.NEXT_PUBLIC_URL + `/${locale}`
 
   return {
     title: t('title'),
-    description: htmlToTextForDescription(t('description'))
+    description: htmlToTextForDescription(t('description')),
+    alternates: {
+      canonical: url
+    }
   }
 }
 

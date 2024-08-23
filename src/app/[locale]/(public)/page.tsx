@@ -1,15 +1,12 @@
 import dishApiRequest from '@/apiRequests/dish'
-import {
-  formatCurrency,
-  generateSlugUrl,
-  htmlToTextForDescription
-} from '@/lib/utils'
+import { formatCurrency, generateSlugUrl } from '@/lib/utils'
 import { DishListResType } from '@/schemaValidations/dish.schema'
 import Image from 'next/image'
 import { Link } from '@/navigation'
 import { getTranslations } from 'next-intl/server'
 import { unstable_setRequestLocale } from 'next-intl/server'
 import envConfig, { Locale } from '@/config'
+import { htmlToTextForDescription } from '@/lib/server-utils'
 
 export async function generateMetadata({
   params: { locale }

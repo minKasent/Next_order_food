@@ -1,12 +1,8 @@
 import dishApiRequest from '@/apiRequests/dish'
 import DishDetail from '@/app/[locale]/(public)/dishes/[slug]/dish-detail'
 import envConfig, { Locale } from '@/config'
-import {
-  generateSlugUrl,
-  getIdFromSlugUrl,
-  htmlToTextForDescription,
-  wrapServerApi
-} from '@/lib/utils'
+import { htmlToTextForDescription } from '@/lib/server-utils'
+import { generateSlugUrl, getIdFromSlugUrl, wrapServerApi } from '@/lib/utils'
 import { baseOpenGraph } from '@/shared-metadata'
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'

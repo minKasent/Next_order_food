@@ -3,7 +3,7 @@ import { EntityError } from '@/lib/http'
 import { type ClassValue, clsx } from 'clsx'
 import { UseFormSetError } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
-import jwt from 'jsonwebtoken'
+import { jwtDecode } from 'jwt-decode'
 import authApiRequest from '@/apiRequests/auth'
 import { DishStatus, OrderStatus, Role, TableStatus } from '@/constants/type'
 import envConfig from '@/config'
@@ -176,7 +176,7 @@ export const getTableLink = ({
 }
 
 export const decodeToken = (token: string) => {
-  return jwt.decode(token) as TokenPayload
+  return jwtDecode(token) as TokenPayload
 }
 
 export function removeAccents(str: string) {

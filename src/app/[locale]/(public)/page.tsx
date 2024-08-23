@@ -50,7 +50,8 @@ export default async function Home({
           src='/banner.png'
           width={400}
           height={200}
-          quality={100}
+          quality={80}
+          loading='lazy'
           alt='Banner'
           className='absolute top-0 left-0 w-full h-full object-cover'
         />
@@ -78,7 +79,8 @@ export default async function Home({
                   src={dish.image}
                   width={150}
                   height={150}
-                  quality={100}
+                  quality={80}
+                  loading='lazy'
                   alt={dish.name}
                   className='object-cover w-[150px] h-[150px] rounded-md'
                 />

@@ -11,6 +11,10 @@ const nextConfig = {
         pathname: '/**'
       },
       {
+        hostname: 'api-bigboy.duthanhduoc.com',
+        pathname: '/**'
+      },
+      {
         hostname: 'via.placeholder.com',
         pathname: '/**'
       }

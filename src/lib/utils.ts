@@ -6,7 +6,7 @@ import { twMerge } from 'tailwind-merge'
 import { jwtDecode } from 'jwt-decode'
 import authApiRequest from '@/apiRequests/auth'
 import { DishStatus, OrderStatus, Role, TableStatus } from '@/constants/type'
-import envConfig from '@/config'
+import envConfig, { defaultLocale } from '@/config'
 import { TokenPayload } from '@/types/jwt.types'
 import guestApiRequest from '@/apiRequests/guest'
 import { format } from 'date-fns'
@@ -171,7 +171,11 @@ export const getTableLink = ({
   tableNumber: number
 }) => {
   return (
-    envConfig.NEXT_PUBLIC_URL + '/tables/' + tableNumber + '?token=' + token
+    envConfig.NEXT_PUBLIC_URL +
+    `/${defaultLocale}/tables/` +
+    tableNumber +
+    '?token=' +
+    token
   )
 }
 

@@ -121,7 +121,7 @@ export default function DashboardMain() {
           </CardHeader>
           <CardContent>
             <div className='text-2xl font-bold'>{orderCount}</div>
-            <p className='text-xs text-muted-foreground'>Đã thanh toán</p>
+            {/* <p className='text-xs text-muted-foreground'>Đã thanh toán</p> */}
           </CardContent>
         </Card>
         <Card>

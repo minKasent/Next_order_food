@@ -3,11 +3,17 @@ import Logout from '@/app/[locale]/(public)/(auth)/login/logout'
 import envConfig, { Locale } from '@/config'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 
-export async function generateMetadata({
-  params: { locale }
-}: {
-  params: { locale: Locale }
-}) {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ locale: Locale }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   const t = await getTranslations({ locale, namespace: 'Login' })
   const url = envConfig.NEXT_PUBLIC_URL + `/${locale}/login`
 
@@ -20,11 +26,17 @@ export async function generateMetadata({
   }
 }
 
-export default function Login({
-  params: { locale }
-}: {
-  params: { locale: string }
-}) {
+export default async function Login(
+  props: {
+    params: Promise<{ locale: string }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   unstable_setRequestLocale(locale)
   return (
     <div className='min-h-screen flex items-center justify-center'>

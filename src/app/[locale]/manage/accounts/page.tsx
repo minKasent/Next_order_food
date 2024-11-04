@@ -13,14 +13,12 @@ import { getTranslations } from 'next-intl/server'
 import { cookies } from 'next/headers'
 
 type Props = {
-  params: { locale: Locale }
-  searchParams: { [key: string]: string | string[] | undefined }
+  params: Promise<{ locale: Locale }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-export async function generateMetadata({
-  params,
-  searchParams
-}: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const t = await getTranslations({
     locale: params.locale,
     namespace: 'ManageAccounts'
@@ -40,8 +38,8 @@ export async function generateMetadata({
   }
 }
 
-export default function AccountsPage() {
-  const cookieStore = cookies()
+export default async function AccountsPage() {
+  const cookieStore = await cookies()
   return (
     <main className='grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8'>
       <div className='space-y-2'>

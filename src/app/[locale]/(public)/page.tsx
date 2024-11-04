@@ -8,11 +8,17 @@ import { unstable_setRequestLocale } from 'next-intl/server'
 import envConfig, { Locale } from '@/config'
 import { htmlToTextForDescription } from '@/lib/server-utils'
 
-export async function generateMetadata({
-  params: { locale }
-}: {
-  params: { locale: Locale }
-}) {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ locale: Locale }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   const t = await getTranslations({ locale, namespace: 'HomePage' })
   const url = envConfig.NEXT_PUBLIC_URL + `/${locale}`
 
@@ -25,11 +31,17 @@ export async function generateMetadata({
   }
 }
 
-export default async function Home({
-  params: { locale }
-}: {
-  params: { locale: string }
-}) {
+export default async function Home(
+  props: {
+    params: Promise<{ locale: string }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   unstable_setRequestLocale(locale)
   const t = await getTranslations('HomePage')
   let dishList: DishListResType['data'] = []

@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import guestApiRequest from '@/apiRequests/guest'
 
 export async function POST(request: Request) {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const refreshToken = cookieStore.get('refreshToken')?.value
   if (!refreshToken) {
     return Response.json(

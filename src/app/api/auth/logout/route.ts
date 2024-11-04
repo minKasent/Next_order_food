@@ -2,7 +2,7 @@ import authApiRequest from '@/apiRequests/auth'
 import { cookies } from 'next/headers'
 
 export async function POST(request: Request) {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const accessToken = cookieStore.get('accessToken')?.value
   const refreshToken = cookieStore.get('refreshToken')?.value
   cookieStore.delete('accessToken')

@@ -5,14 +5,12 @@ import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 
 type Props = {
-  params: { locale: Locale }
-  searchParams: { [key: string]: string | string[] | undefined }
+  params: Promise<{ locale: Locale }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-export async function generateMetadata({
-  params,
-  searchParams
-}: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const t = await getTranslations({
     locale: params.locale,
     namespace: 'GuestMenu'

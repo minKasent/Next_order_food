@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     refreshToken: string
   }
   const { accessToken, refreshToken } = body
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   try {
     const decodedAccessToken = jwt.decode(accessToken) as { exp: number }
     const decodedRefreshToken = jwt.decode(refreshToken) as { exp: number }

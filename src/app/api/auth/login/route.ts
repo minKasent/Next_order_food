@@ -6,7 +6,7 @@ import { HttpError } from '@/lib/http'
 
 export async function POST(request: Request) {
   const body = (await request.json()) as LoginBodyType
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   try {
     const { payload } = await authApiRequest.sLogin(body)
     const { accessToken, refreshToken } = payload.data

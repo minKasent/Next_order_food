@@ -3,7 +3,7 @@
 import { useAppStore } from '@/components/app-provider'
 import { toast } from '@/components/ui/use-toast'
 import { decodeToken, generateSocketInstace } from '@/lib/utils'
-import { useRouter } from '@/navigation'
+import { useRouter } from '@/i18n/routing'
 import { useSetTokenToCookieMutation } from '@/queries/useAuth'
 import { Metadata } from 'next'
 import { useSearchParams } from 'next/navigation'

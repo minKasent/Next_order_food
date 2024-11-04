@@ -15,7 +15,7 @@ import { useEffect } from 'react'
 import { useGuestLoginMutation } from '@/queries/useGuest'
 import { useAppStore } from '@/components/app-provider'
 import { generateSocketInstace, handleErrorApi } from '@/lib/utils'
-import { useRouter } from '@/navigation'
+import { useRouter } from '@/i18n/routing'
 
 export default function GuestLoginForm() {
   const setSocket = useAppStore((state) => state.setSocket)

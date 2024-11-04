@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/tooltip'
 import { cn } from '@/lib/utils'
 import { Package2, Settings } from 'lucide-react'
-import { Link, usePathname } from '@/navigation'
+import { Link, usePathname } from '@/i18n/routing'
 
 export default function NavLinks() {
   const pathname = usePathname()

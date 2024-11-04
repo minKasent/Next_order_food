@@ -1,6 +1,6 @@
 import { useAppStore } from '@/components/app-provider'
 import { handleErrorApi } from '@/lib/utils'
-import { usePathname, useRouter } from '@/navigation'
+import { usePathname, useRouter } from '@/i18n/routing'
 import { useLogoutMutation } from '@/queries/useAuth'
 import { useEffect } from 'react'
 

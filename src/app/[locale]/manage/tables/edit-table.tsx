@@ -36,7 +36,7 @@ import {
 } from '@/schemaValidations/table.schema'
 import { TableStatus, TableStatusValues } from '@/constants/type'
 import { Switch } from '@/components/ui/switch'
-import { Link } from '@/navigation'
+import { Link } from '@/i18n/routing'
 import { useEffect } from 'react'
 import { useGetTableQuery, useUpdateTableMutation } from '@/queries/useTable'
 import { toast } from '@/components/ui/use-toast'

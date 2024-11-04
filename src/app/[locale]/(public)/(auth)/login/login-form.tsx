@@ -16,11 +16,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useLoginMutation } from '@/queries/useAuth'
 import { toast } from '@/components/ui/use-toast'
 import { generateSocketInstace, handleErrorApi } from '@/lib/utils'
-import { useRouter } from '@/navigation'
+import { useRouter } from '@/i18n/routing'
 import { useEffect } from 'react'
 import { useAppStore } from '@/components/app-provider'
 import envConfig from '@/config'
-import { Link } from '@/navigation'
+import { Link } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
 import SearchParamsLoader, {
   useSearchParamsLoader

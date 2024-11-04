@@ -1,4 +1,4 @@
-import envConfig from '@/config'
+import envConfig, { defaultLocale } from '@/config'
 import {
   getAccessTokenFromLocalStorage,
   normalizePath,
@@ -7,7 +7,7 @@ import {
   setRefreshTokenToLocalStorage
 } from '@/lib/utils'
 import { LoginResType } from '@/schemaValidations/auth.schema'
-import { redirect } from '@/navigation'
+import { redirect } from '@/i18n/routing'
 import Cookies from 'js-cookie'
 type CustomOptions = Omit<RequestInit, 'method'> & {
   baseUrl?: string | undefined
@@ -151,7 +151,11 @@ const request = async <Response>(
         const accessToken = (options?.headers as any)?.Authorization.split(
           'Bearer '
         )[1]
-        redirect(`/login?accessToken=${accessToken}`)
+        const locale = Cookies.get('NEXT_LOCALE')
+        redirect({
+          href: `/login?accessToken=${accessToken}`,
+          locale: locale ?? defaultLocale
+        })
       }
     } else {
       throw new HttpError(data)

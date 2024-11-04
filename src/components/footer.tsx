@@ -1,4 +1,4 @@
-import { Link } from '@/navigation'
+import { Link } from '@/i18n/routing'
 import { Beef } from 'lucide-react'
 
 export default function Footer() {

@@ -1,6 +1,12 @@
 'use client'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
-import { useRouter } from '@/navigation'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle
+} from '@/components/ui/dialog'
+import { useRouter } from '@/i18n/routing'
 
 import { useState } from 'react'
 export default function Modal({ children }: { children: React.ReactNode }) {
@@ -16,6 +22,10 @@ export default function Modal({ children }: { children: React.ReactNode }) {
       }}
     >
       <DialogContent className='max-h-full overflow-auto'>
+        <DialogHeader className='hidden'>
+          <DialogTitle></DialogTitle>
+          <DialogDescription></DialogDescription>
+        </DialogHeader>
         {children}
       </DialogContent>
     </Dialog>

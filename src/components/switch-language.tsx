@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/select'
 import { Locale, locales } from '@/config'
 import { useLocale, useTranslations } from 'next-intl'
-import { usePathname, useRouter } from '@/navigation'
+import { usePathname, useRouter } from '@/i18n/routing'
 
 export default function SwitchLanguage() {
   const t = useTranslations('SwitchLanguage')

@@ -5,13 +5,18 @@ import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from '@/components/theme-provider'
 import AppProvider from '@/components/app-provider'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages, getTranslations } from 'next-intl/server'
-import { Locale, locales } from '@/config'
-import { unstable_setRequestLocale } from 'next-intl/server'
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale
+} from 'next-intl/server'
+import { Locale } from '@/config'
 import NextTopLoader from 'nextjs-toploader'
 import Footer from '@/components/footer'
 import { baseOpenGraph } from '@/shared-metadata'
 import GoogleTag from '@/components/google-tag'
+import { routing } from '@/i18n/routing'
+import { notFound } from 'next/navigation'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -40,7 +45,7 @@ export async function generateMetadata(props: {
 }
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }))
+  return routing.locales.map((locale) => ({ locale }))
 }
 
 export default async function RootLayout(
@@ -55,7 +60,11 @@ export default async function RootLayout(
 
   const { children } = props
 
-  unstable_setRequestLocale(locale)
+  // Ensure that the incoming `locale` is valid
+  if (!routing.locales.includes(locale as any)) {
+    notFound()
+  }
+  setRequestLocale(locale)
   const messages = await getMessages()
   return (
     <html lang={locale} suppressHydrationWarning>

@@ -8,7 +8,7 @@ import { useMemo, useState } from 'react'
 import { GuestCreateOrdersBodyType } from '@/schemaValidations/guest.schema'
 import { useGuestOrderMutation } from '@/queries/useGuest'
 import { DishStatus } from '@/constants/type'
-import { useRouter } from '@/navigation'
+import { useRouter } from '@/i18n/routing'
 
 export default function MenuOrder() {
   const { data } = useDishListQuery()

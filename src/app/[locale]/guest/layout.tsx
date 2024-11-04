@@ -5,7 +5,7 @@ export default function GuestLayout({
   children
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <Layout modal={null} params={{ locale: defaultLocale }}>
+    <Layout modal={null} params={Promise.resolve({ locale: defaultLocale })}>
       {children}
     </Layout>
   )

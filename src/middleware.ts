@@ -4,7 +4,9 @@ import type { NextRequest } from 'next/server'
 import jwt from 'jsonwebtoken'
 import { TokenPayload } from '@/types/jwt.types'
 import createMiddleware from 'next-intl/middleware'
-import { locales, defaultLocale } from '@/config'
+import { defaultLocale } from '@/config'
+import { routing } from './i18n/routing'
+
 const decodeToken = (token: string) => {
   return jwt.decode(token) as TokenPayload
 }
@@ -18,10 +20,7 @@ const loginPaths = ['/vi/login', '/en/login']
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
-  const handleI18nRouting = createMiddleware({
-    locales,
-    defaultLocale
-  })
+  const handleI18nRouting = createMiddleware(routing)
   const response = handleI18nRouting(request)
   const { pathname, searchParams } = request.nextUrl
   // pathname: /manage/dashboard

@@ -11,8 +11,7 @@ import {
 import DarkModeToggle from '@/components/dark-mode-toggle'
 import NavItems from '@/app/[locale]/(public)/nav-items'
 import SwitchLanguage from '@/components/switch-language'
-import { Link } from '@/navigation'
-import { unstable_setRequestLocale } from 'next-intl/server'
+import { Link } from '@/i18n/routing'
 
 export default async function Layout(
   props: Readonly<{
@@ -27,7 +26,6 @@ export default async function Layout(
 
   const { children, modal } = props
 
-  unstable_setRequestLocale(locale)
   return (
     <div className='flex min-h-screen w-full flex-col relative'>
       <header className='sticky z-20 top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6'>
@@ -53,8 +51,9 @@ export default async function Layout(
             </Button>
           </SheetTrigger>
           <SheetContent side='left'>
-            <SheetHeader className='hidden'>
-              <SheetTitle></SheetTitle>
+            <SheetHeader className='sr-only'>
+              <SheetTitle />
+              <SheetDescription />
             </SheetHeader>
             <nav className='grid gap-6 text-lg font-medium'>
               <Link

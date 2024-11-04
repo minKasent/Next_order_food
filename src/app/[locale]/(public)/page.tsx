@@ -2,22 +2,18 @@ import dishApiRequest from '@/apiRequests/dish'
 import { formatCurrency, generateSlugUrl } from '@/lib/utils'
 import { DishListResType } from '@/schemaValidations/dish.schema'
 import Image from 'next/image'
-import { Link } from '@/navigation'
+import { Link } from '@/i18n/routing'
 import { getTranslations } from 'next-intl/server'
-import { unstable_setRequestLocale } from 'next-intl/server'
+import { setRequestLocale } from 'next-intl/server'
 import envConfig, { Locale } from '@/config'
 import { htmlToTextForDescription } from '@/lib/server-utils'
 
-export async function generateMetadata(
-  props: {
-    params: Promise<{ locale: Locale }>
-  }
-) {
-  const params = await props.params;
+export async function generateMetadata(props: {
+  params: Promise<{ locale: Locale }>
+}) {
+  const params = await props.params
 
-  const {
-    locale
-  } = params;
+  const { locale } = params
 
   const t = await getTranslations({ locale, namespace: 'HomePage' })
   const url = envConfig.NEXT_PUBLIC_URL + `/${locale}`
@@ -31,18 +27,14 @@ export async function generateMetadata(
   }
 }
 
-export default async function Home(
-  props: {
-    params: Promise<{ locale: string }>
-  }
-) {
-  const params = await props.params;
+export default async function Home(props: {
+  params: Promise<{ locale: string }>
+}) {
+  const params = await props.params
 
-  const {
-    locale
-  } = params;
+  const { locale } = params
 
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
   const t = await getTranslations('HomePage')
   let dishList: DishListResType['data'] = []
   try {

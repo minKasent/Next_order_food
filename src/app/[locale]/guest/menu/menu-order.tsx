@@ -16,7 +16,6 @@ export default function MenuOrder() {
   const [orders, setOrders] = useState<GuestCreateOrdersBodyType>([])
   const { mutateAsync } = useGuestOrderMutation()
   const router = useRouter()
-  // React 19 hoặc Next.js 15 thì không cần dùng useMemo chỗ này
   const totalPrice = useMemo(() => {
     return dishes.reduce((result, dish) => {
       const order = orders.find((order) => order.dishId === dish.id)

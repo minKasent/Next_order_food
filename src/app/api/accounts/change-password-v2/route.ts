@@ -29,18 +29,20 @@ export async function PUT(request: Request) {
     const decodedRefreshToken = jwt.decode(payload.data.refreshToken) as {
       exp: number
     }
+    const isProduction = process.env.NODE_ENV === 'production'
+    const isHttps = process.env.NEXT_PUBLIC_URL?.startsWith('https')
     cookieStore.set('accessToken', payload.data.accessToken, {
       path: '/',
       httpOnly: true,
       sameSite: 'lax',
-      secure: true,
+      secure: isProduction && isHttps,
       expires: decodedAccessToken.exp * 1000
     })
     cookieStore.set('refreshToken', payload.data.refreshToken, {
       path: '/',
       httpOnly: true,
       sameSite: 'lax',
-      secure: true,
+      secure: isProduction && isHttps,
       expires: decodedRefreshToken.exp * 1000
     })
     return Response.json(payload)

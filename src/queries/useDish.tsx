@@ -1,4 +1,5 @@
 import dishApiRequest from '@/apiRequests/dish'
+import revalidateApiRequest from '@/apiRequests/revalidate'
 import { UpdateDishBodyType } from '@/schemaValidations/dish.schema'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
@@ -31,6 +32,7 @@ export const useAddDishMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ['dishes']
       })
+      revalidateApiRequest('dishes')
     }
   })
 }
@@ -46,6 +48,7 @@ export const useUpdateDishMutation = () => {
         queryKey: ['dishes'],
         exact: true
       })
+      revalidateApiRequest('dishes')
     }
   })
 }
@@ -59,6 +62,7 @@ export const useDeleteDishMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ['dishes']
       })
+      revalidateApiRequest('dishes')
     }
   })
 }

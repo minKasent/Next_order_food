@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test API</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        pre { background: #f4f4f4; padding: 10px; border-radius: 5px; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Test Add Dish API</h1>
+    
+    <div>
+        <h3>Step 1: Login</h3>
+        <button onclick="login()">Login as Admin</button>
+    </div>
+    
+    <div>
+        <h3>Step 2: Add Dish</h3>
+        <button onclick="addDish()">Add Test Dish</button>
+    </div>
+    
+    <div>
+        <h3>Results:</h3>
+        <pre id="result"></pre>
+    </div>
+
+    <script>
+        const API_URL = 'http://160.250.247.146:4000';
+        
+        function log(message, isError = false) {
+            const result = document.getElementById('result');
+            const timestamp = new Date().toLocaleTimeString();
+            const className = isError ? 'error' : 'success';
+            result.innerHTML += `<span class="${className}">[${timestamp}] ${message}</span>\n`;
+        }
+        
+        async function login() {
+            try {
+                log('Logging in...');
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: 'admin@order.com',
+                        password: '123456'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.data && data.data.accessToken) {
+                    localStorage.setItem('accessToken', data.data.accessToken);
+                    localStorage.setItem('refreshToken', data.data.refreshToken);
+                    log('✓ Login successful! Token saved to localStorage');
+                    log('Token: ' + data.data.accessToken.substring(0, 50) + '...');
+                } else {
+                    log('✗ Login failed: ' + JSON.stringify(data), true);
+                }
+            } catch (error) {
+                log('✗ Login error: ' + error.message, true);
+            }
+        }
+        
+        async function addDish() {
+            const token = localStorage.getItem('accessToken');
+            
+            if (!token) {
+                log('✗ No token found! Please login first.', true);
+                return;
+            }
+            
+            try {
+                log('Adding dish with token...');
+                log('Token: ' + token.substring(0, 50) + '...');
+                
+                const response = await fetch(`${API_URL}/dishes`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    mode: 'cors',
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        name: 'Test Dish from Browser',
+                        price: 50000,
+                        description: 'Test description from browser',
+                        image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400',
+                        status: 'Available'
+                    })
+                });
+                
+                log('Response status: ' + response.status);
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    log('✓ Dish added successfully!');
+                    log('Response: ' + JSON.stringify(data, null, 2));
+                } else {
+                    log('✗ Failed to add dish: ' + JSON.stringify(data), true);
+                }
+            } catch (error) {
+                log('✗ Error adding dish: ' + error.message, true);
+                log('Error details: ' + error.stack, true);
+            }
+        }
+    </script>
+</body>
+</html>

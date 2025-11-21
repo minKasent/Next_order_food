@@ -97,15 +97,37 @@ const request = async <Response>(
       : options.baseUrl
 
   const fullUrl = `${baseUrl}/${normalizePath(url)}`
-  const res = await fetch(fullUrl, {
-    ...options,
-    headers: {
-      ...baseHeaders,
-      ...options?.headers
-    } as any,
-    body,
-    method
-  })
+  
+  // Thêm timeout 30 giây
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), 30000)
+  
+  let res
+  try {
+    res = await fetch(fullUrl, {
+      ...options,
+      headers: {
+        ...baseHeaders,
+        ...options?.headers
+      } as any,
+      body,
+      method,
+      signal: controller.signal,
+      mode: 'cors',
+      credentials: 'include'
+    })
+    clearTimeout(timeoutId)
+  } catch (error: any) {
+    clearTimeout(timeoutId)
+    if (error.name === 'AbortError') {
+      throw new HttpError({
+        status: 408,
+        payload: { message: 'Request timeout - Vui lòng thử lại' }
+      })
+    }
+    throw error
+  }
+  
   const payload: Response = await res.json()
   const data = {
     status: res.status,

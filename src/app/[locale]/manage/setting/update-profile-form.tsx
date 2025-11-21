@@ -122,7 +122,7 @@ export default function UpdateProfileForm() {
                           if (file) {
                             setFile(file)
                             field.onChange(
-                              'http://localhost:3000/' + field.name
+                              'http://view.com/' + field.name
                             )
                           }
                         }}

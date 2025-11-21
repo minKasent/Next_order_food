@@ -17,7 +17,7 @@ export default function MenuOrder() {
   const { mutateAsync } = useGuestOrderMutation()
   const router = useRouter()
   const totalPrice = useMemo(() => {
-    return dishes.reduce((result, dish) => {
+    return dishes.reduce((result: number, dish: any) => {
       const order = orders.find((order) => order.dishId === dish.id)
       if (!order) return result
       return result + order.quantity * dish.price
@@ -52,8 +52,8 @@ export default function MenuOrder() {
   return (
     <>
       {dishes
-        .filter((dish) => dish.status !== DishStatus.Hidden)
-        .map((dish) => (
+        .filter((dish: any) => dish.status !== DishStatus.Hidden)
+        .map((dish: any) => (
           <div
             key={dish.id}
             className={cn('flex gap-4', {

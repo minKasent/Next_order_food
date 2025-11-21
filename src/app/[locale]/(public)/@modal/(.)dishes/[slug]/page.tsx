@@ -3,6 +3,8 @@ import Modal from '@/app/[locale]/(public)/@modal/(.)dishes/[slug]/modal'
 import DishDetail from '@/app/[locale]/(public)/dishes/[slug]/dish-detail'
 import { getIdFromSlugUrl, wrapServerApi } from '@/lib/utils'
 
+const shouldSkipRemoteFetch = process.env.SKIP_REMOTE_FETCH === 'true'
+
 export default async function DishPage(
   props: {
     params: Promise<{
@@ -17,7 +19,9 @@ export default async function DishPage(
   } = params;
 
   const id = getIdFromSlugUrl(slug)
-  const data = await wrapServerApi(() => dishApiRequest.getDish(Number(id)))
+  const data = shouldSkipRemoteFetch
+    ? null
+    : await wrapServerApi(() => dishApiRequest.getDish(Number(id)))
 
   const dish = data?.payload?.data
   return (

@@ -19,7 +19,7 @@ export default function OrdersCart() {
   const socket = useAppStore((state) => state.socket)
   const { waitingForPaying, paid } = useMemo(() => {
     return orders.reduce(
-      (result, order) => {
+      (result: any, order: any) => {
         if (
           order.status === OrderStatus.Delivered ||
           order.status === OrderStatus.Processing ||
@@ -108,7 +108,7 @@ export default function OrdersCart() {
   }, [refetch, socket])
   return (
     <>
-      {orders.map((order, index) => (
+      {orders.map((order: any, index: number) => (
         <div key={order.id} className='flex gap-4'>
           <div className='text-sm font-semibold'>{index + 1}</div>
           <div className='flex-shrink-0 relative'>

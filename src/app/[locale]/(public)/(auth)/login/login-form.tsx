@@ -72,6 +72,9 @@ export default function LoginForm() {
     if (loginMutation.isPending) return
     try {
       const result = await loginMutation.mutateAsync(data)
+      // Lưu token vào localStorage để sử dụng cho các API calls từ client
+      localStorage.setItem('accessToken', result.payload.data.accessToken)
+      localStorage.setItem('refreshToken', result.payload.data.refreshToken)
       toast({
         description: result.payload.message
       })

@@ -36,15 +36,18 @@ export default async function Home(props: {
 
   setRequestLocale(locale)
   const t = await getTranslations('HomePage')
+  const shouldSkipRemoteFetch = process.env.SKIP_REMOTE_FETCH === 'true'
   let dishList: DishListResType['data'] = []
-  try {
-    const result = await dishApiRequest.list()
-    const {
-      payload: { data }
-    } = result
-    dishList = data
-  } catch (error) {
-    return <div>Something went wrong</div>
+  if (!shouldSkipRemoteFetch) {
+    try {
+      const result = await dishApiRequest.list()
+      const {
+        payload: { data }
+      } = result
+      dishList = data
+    } catch (error) {
+      console.error('Failed to fetch dish list for homepage', error)
+    }
   }
   return (
     <div className='w-full space-y-4'>

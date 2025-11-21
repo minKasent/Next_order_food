@@ -7,9 +7,14 @@ import { baseOpenGraph } from '@/shared-metadata'
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { cache } from 'react'
-const getDetail = cache((id: number) =>
-  wrapServerApi(() => dishApiRequest.getDish(id))
-)
+
+const shouldSkipRemoteFetch = process.env.SKIP_REMOTE_FETCH === 'true'
+const getDetail = cache((id: number) => {
+  if (shouldSkipRemoteFetch) {
+    return Promise.resolve(null)
+  }
+  return wrapServerApi(() => dishApiRequest.getDish(id))
+})
 
 type Props = {
   params: Promise<{ slug: string; locale: Locale }>

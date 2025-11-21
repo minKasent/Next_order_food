@@ -6,16 +6,28 @@ const withNextIntl = createNextIntlPlugin()
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
+      // {
+      //   hostname: 'localhost',
+      //   pathname: '/**'
+      // },
       {
-        hostname: 'localhost',
+        hostname: '160.250.247.146',
         pathname: '/**'
       },
       {
-        hostname: 'api-bigboy.duthanhduoc.com',
+        hostname: 'api.minka.io.vn',
         pathname: '/**'
       },
+      // {
+      //   hostname: 'api-bigboy.duthanhduoc.com',
+      //   pathname: '/**'
+      // },
       {
         hostname: 'via.placeholder.com',
+        pathname: '/**'
+      },
+      {
+        hostname: 'view.com',
         pathname: '/**'
       }
     ]

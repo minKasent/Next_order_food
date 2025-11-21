@@ -2,6 +2,7 @@ import dishApiRequest from '@/apiRequests/dish'
 import envConfig, { locales } from '@/config'
 import { generateSlugUrl } from '@/lib/utils'
 import type { MetadataRoute } from 'next'
+import type { DishListResType } from '@/schemaValidations/dish.schema'
 
 const staticRoutes: MetadataRoute.Sitemap = [
   {
@@ -17,9 +18,16 @@ const staticRoutes: MetadataRoute.Sitemap = [
 ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const result = await dishApiRequest.list()
-
-  const dishList = result.payload.data
+  let dishList: DishListResType['data'] = []
+  const shouldSkipRemoteFetch = process.env.SKIP_REMOTE_FETCH === 'true'
+  if (!shouldSkipRemoteFetch) {
+    try {
+      const result = await dishApiRequest.list()
+      dishList = result.payload.data
+    } catch (error) {
+      console.error('Failed to fetch dishes for sitemap', error)
+    }
+  }
   const localizeStaticSiteMap = locales.reduce((acc, locale) => {
     return [
       ...acc,

@@ -12,18 +12,20 @@ export async function POST(request: Request) {
     const { accessToken, refreshToken } = payload.data
     const decodedAccessToken = jwt.decode(accessToken) as { exp: number }
     const decodedRefreshToken = jwt.decode(refreshToken) as { exp: number }
+    const isProduction = process.env.NODE_ENV === 'production'
+    const isHttps = process.env.NEXT_PUBLIC_URL?.startsWith('https')
     cookieStore.set('accessToken', accessToken, {
       path: '/',
       httpOnly: true,
       sameSite: 'lax',
-      secure: true,
+      secure: isProduction && isHttps,
       expires: decodedAccessToken.exp * 1000
     })
     cookieStore.set('refreshToken', refreshToken, {
       path: '/',
       httpOnly: true,
       sameSite: 'lax',
-      secure: true,
+      secure: isProduction && isHttps,
       expires: decodedRefreshToken.exp * 1000
     })
     return Response.json(payload)

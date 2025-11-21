@@ -1,4 +1,3 @@
-import { Inter as FontSans } from 'next/font/google'
 import './globals.css'
 import { cn } from '@/lib/utils'
 import { Toaster } from '@/components/ui/toaster'
@@ -18,10 +17,6 @@ import GoogleTag from '@/components/google-tag'
 import { routing } from '@/i18n/routing'
 import { notFound } from 'next/navigation'
 
-const fontSans = FontSans({
-  subsets: ['latin'],
-  variable: '--font-sans'
-})
 export async function generateMetadata(props: {
   params: Promise<{ locale: Locale }>
 }) {
@@ -68,11 +63,9 @@ export default async function RootLayout(
   const messages = await getMessages()
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body suppressHydrationWarning
-        className={cn(
-          'min-h-screen bg-background font-sans antialiased',
-          fontSans.variable
-        )}
+      <body
+        suppressHydrationWarning
+        className={cn('min-h-screen bg-background font-sans antialiased')}
       >
         <NextTopLoader showSpinner={false} color='hsl(var(--foreground))' />
         <NextIntlClientProvider messages={messages}>

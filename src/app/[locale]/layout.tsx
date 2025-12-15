@@ -16,6 +16,7 @@ import { baseOpenGraph } from '@/shared-metadata'
 import GoogleTag from '@/components/google-tag'
 import { routing } from '@/i18n/routing'
 import { notFound } from 'next/navigation'
+import HydrationFixer from '@/components/hydration-fixer'
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: Locale }>
@@ -83,6 +84,7 @@ export default async function RootLayout(
           </AppProvider>
         </NextIntlClientProvider>
         <GoogleTag />
+        <HydrationFixer />
       </body>
     </html>
   )

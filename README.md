@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next Order Food - Smart Restaurant Management Platform 🍽️
 
-## Getting Started
+[![Next.js](https://img.shields.io/badge/Next.js-15_(Turbopack)-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-First, run the development server:
+A modern, high-performance web platform for online food ordering and smart restaurant operations, built with **Next.js 15**, **React 19**, **TypeScript**, and **Socket.io**. Supporting dynamic table QR code ordering, real-time kitchen order dispatch, interactive management dashboards, and multi-language localization.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **📱 Dynamic QR Code Table Ordering**: Instant guest menu access and live ordering directly at dining tables via custom QR tokens.
+- **⚡ Real-Time Kitchen Dispatch**: Live order lifecycle tracking (Ordered → Cooking → Served → Paid) powered by **Socket.io**.
+- **📊 Business Intelligence Dashboard**: Revenue metrics, order volume, and dish sales analytics visualized with **Recharts**.
+- **🌐 Internationalization (i18n)**: Full multilingual support (Vietnamese & English) with `next-intl`.
+- **🛡️ Role-Based Access Control (RBAC)**: Distinct permissions for Guests, Waiters, Chefs, and Restaurant Owners.
+- **🎨 Modern Design System**: Built with **shadcn/ui**, **Radix UI**, **Lucide Icons**, and Dark/Light theme switching via `next-themes`.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+---
 
-## Learn More
+## 🛠 Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+| Domain | Technology |
+| :--- | :--- |
+| **Framework** | [Next.js 15](https://nextjs.org/) (App Router, Turbopack, SSR, Server Actions) |
+| **Language & Runtime** | [React 19](https://react.dev/), [TypeScript 5](https://www.typescriptlang.org/) |
+| **State Management** | [TanStack Query v5](https://tanstack.com/query/latest) & [Zustand](https://zustand-demo.pmnd.rs/) |
+| **UI Components** | [shadcn/ui](https://ui.shadcn.com/), [Radix UI](https://www.radix-ui.com/), [TailwindCSS](https://tailwindcss.com/) |
+| **Realtime** | [Socket.io Client](https://socket.io/) |
+| **Data Tables & Charts** | [TanStack Table v8](https://tanstack.com/table/v8), [Recharts](https://recharts.org/) |
+| **Form & Validation** | [React Hook Form](https://react-hook-form.com/) & [Zod](https://zod.dev/) |
+| **Deployment** | [PM2](https://pm2.keymetrics.io/) Cluster Ecosystem (`ecosystem.config.js`) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 🚀 Getting Started
 
-## Deploy on Vercel
+### Prerequisites
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Node.js (v18.17+ or v20+ recommended)
+- npm / pnpm / yarn
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/minKasent/Next_order_food.git
+   cd Next_order_food
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables:**
+   Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+4. **Run the Development Server:**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) to view the application.
+
+5. **Production Build & PM2 Deployment:**
+   ```bash
+   npm run build
+   pm2 start ecosystem.config.js
+   ```
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

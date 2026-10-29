@@ -79,3 +79,13 @@ A modern, high-performance web platform for online food ordering and smart resta
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## ☁️ Cloudinary Media Optimization Pipeline
+
+This project integrates **Cloudinary** (`src/lib/cloudinary.ts`) for dynamic food menu photography and media delivery:
+- **Automatic Format & Quality (`f_auto,q_auto`):** Serves AVIF/WebP dish images tailored to each client browser to minimize LCP and bandwidth.
+- **Smart Subject Cropping (`c_fill,g_auto`):** Automatically keeps dishes centered across mobile/desktop menu cards and promotional banners.
+- **Visual Enhancement (`e_improve`):** Balances lighting and color contrast on uploaded restaurant dish photos in real time.
+
